@@ -6,8 +6,4 @@ public class Lion extends ZooAnimal{
         this.name = name;
         type = AnimalType.LION;
     }
-
-    public String getName() {
-        return name;
-    }
 }
