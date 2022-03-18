@@ -155,4 +155,13 @@ public class ZooTest {
         Assertions.assertTrue(zooDatabase.getAnimals().contains(giraffe));
         Assertions.assertEquals(14, zooDatabase.getAnimals().size());
     }
+
+    @Test
+    public void addAnimalToDatabase() {
+        ZooAnimal giraffe = new Giraffe("Balboa", 3);
+        zooDatabase.addAnimalToDatabase(giraffe);
+        zooDatabase.loadAnimals();
+        Assertions.assertTrue(zooDatabase.getAnimals().contains(giraffe));
+        Assertions.assertEquals(14, zooDatabase.getAnimals().size());
+    }
 }

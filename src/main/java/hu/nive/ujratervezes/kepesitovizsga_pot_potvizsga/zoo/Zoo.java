@@ -2,10 +2,7 @@ package hu.nive.ujratervezes.kepesitovizsga_pot_potvizsga.zoo;
 
 import org.mariadb.jdbc.MariaDbDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -95,6 +92,19 @@ public class Zoo {
             case GIRAFFE : animals.add(new Giraffe(name, length));
                 break;
             case ELEPHANT : animals.add(new Elephant(name, length, weight));
+        }
+    }
+
+    public void addAnimalToDatabase(ZooAnimal animal) {
+        try(Connection con = dataSource.getConnection();
+            PreparedStatement ps = con.prepareStatement("insert into animals (animal_name, length_of_member, weight, animal_type) values (?, ?, ?, ?)")) {
+            ps.setString(1, animal.getName());
+            ps.setInt(2, animal.getLength());
+            ps.setLong(3, animal.getWeight());
+            ps.setString(4, animal.getType().toString());
+            ps.executeUpdate();
+        } catch (SQLException sqle) {
+            throw new IllegalStateException("Cannot reach database!");
         }
     }
 }
